@@ -1,22 +1,24 @@
-package model
+package converter
 
-//go:generate goverter gen .
+import (
+	"github.com/halyph/go-service-blueprint/pkg/handler/dto"
+	"github.com/halyph/go-service-blueprint/pkg/model"
+)
 
 // UserConverter converts between User and UserDTO
 // goverter:converter
-// goverter:output:file generated_converter.go
 type UserConverter interface {
 	// ConvertUser converts User to UserDTO
 	// goverter:map . FullName | FormatFullName
 	// goverter:map IsActive Active
-	ConvertUser(source User) UserDTO
+	ConvertUser(source model.User) dto.UserDTO
 
 	// ConvertUserList converts slice of Users to DTOs
-	ConvertUserList(source []User) []UserDTO
+	ConvertUserList(source []model.User) []dto.UserDTO
 }
 
 // FormatFullName formats full name for DTO from User
-func FormatFullName(user User) string {
+func FormatFullName(user model.User) string {
 	return FormatName(user.FirstName, user.LastName)
 }
 

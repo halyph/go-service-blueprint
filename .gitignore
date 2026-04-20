@@ -49,6 +49,12 @@ TODO.md
 # Go CLI tools, see /tools/tools.go
 .tools/
 
+# Generated code (included in repo but marked for reference)
+# To find all generated code:
+#   - Mockery mocks:   find . -path "*/mocks/*.go"
+#   - Goverter:        find . -path "*/generated/*.go"
+# Note: These ARE committed to repo but marked here for easy identification
+
 # local development
 .devbox
 .claude

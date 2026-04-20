@@ -10,6 +10,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/halyph/go-service-blueprint/pkg/handler"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -39,12 +40,18 @@ func run(ctx context.Context) error {
 	})
 
 	gr.Go(func() error {
+		userHandler := handler.NewUserHandler()
+		mux := http.NewServeMux()
+		mux.HandleFunc("/users", userHandler.ListUsers)
+		mux.HandleFunc("/users/", userHandler.GetUser)
+		mux.HandleFunc("/health", func(w http.ResponseWriter, _ *http.Request) {
+			_, _ = w.Write([]byte("ok"))
+		})
+
 		server := &http.Server{
 			Addr:              ":8080",
 			ReadHeaderTimeout: 10 * time.Second,
-			Handler: http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
-				_, _ = w.Write([]byte("ok"))
-			}),
+			Handler:           mux,
 		}
 
 		go func() {

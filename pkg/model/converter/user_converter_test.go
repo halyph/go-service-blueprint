@@ -1,4 +1,4 @@
-package model
+package converter_test
 
 import (
 	"encoding/json"
@@ -7,6 +7,8 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/halyph/go-service-blueprint/pkg/model"
+	"github.com/halyph/go-service-blueprint/pkg/model/converter/generated"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -14,15 +16,15 @@ import (
 var update = flag.Bool("update", false, "update golden files")
 
 func TestUserConverter_ConvertUser_Golden(t *testing.T) {
-	converter := &UserConverterImpl{}
+	conv := &generated.UserConverterImpl{}
 
 	tests := []struct {
 		name string
-		user User
+		user model.User
 	}{
 		{
 			name: "full_user",
-			user: User{
+			user: model.User{
 				ID:        1,
 				Username:  "johndoe",
 				Email:     "john@example.com",
@@ -33,7 +35,7 @@ func TestUserConverter_ConvertUser_Golden(t *testing.T) {
 		},
 		{
 			name: "user_without_names",
-			user: User{
+			user: model.User{
 				ID:        2,
 				Username:  "noname",
 				Email:     "noname@example.com",
@@ -44,7 +46,7 @@ func TestUserConverter_ConvertUser_Golden(t *testing.T) {
 		},
 		{
 			name: "user_with_first_name_only",
-			user: User{
+			user: model.User{
 				ID:        3,
 				Username:  "alice",
 				Email:     "alice@example.com",
@@ -58,7 +60,7 @@ func TestUserConverter_ConvertUser_Golden(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			// Convert user to DTO
-			dto := converter.ConvertUser(tt.user)
+			dto := conv.ConvertUser(tt.user)
 
 			// Marshal to JSON for golden file comparison
 			actual, err := json.MarshalIndent(dto, "", "  ")
@@ -84,9 +86,9 @@ func TestUserConverter_ConvertUser_Golden(t *testing.T) {
 }
 
 func TestUserConverter_ConvertUserList_Golden(t *testing.T) {
-	converter := &UserConverterImpl{}
+	conv := &generated.UserConverterImpl{}
 
-	users := []User{
+	users := []model.User{
 		{
 			ID:        1,
 			Username:  "johndoe",
@@ -105,7 +107,7 @@ func TestUserConverter_ConvertUserList_Golden(t *testing.T) {
 		},
 	}
 
-	dtos := converter.ConvertUserList(users)
+	dtos := conv.ConvertUserList(users)
 
 	// Marshal to JSON
 	actual, err := json.MarshalIndent(dtos, "", "  ")

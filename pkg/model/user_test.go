@@ -1,8 +1,10 @@
-package model
+package model_test
 
 import (
 	"testing"
 
+	"github.com/halyph/go-service-blueprint/pkg/model"
+	"github.com/halyph/go-service-blueprint/pkg/model/converter"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -41,18 +43,18 @@ func TestFormatName(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := FormatName(tt.firstName, tt.lastName)
+			got := converter.FormatName(tt.firstName, tt.lastName)
 			assert.Equal(t, tt.want, got)
 		})
 	}
 }
 
 func TestFormatFullName(t *testing.T) {
-	user := User{
+	user := model.User{
 		FirstName: "John",
 		LastName:  "Doe",
 	}
 
-	got := FormatFullName(user)
+	got := converter.FormatFullName(user)
 	assert.Equal(t, "John Doe", got)
 }
