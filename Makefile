@@ -6,7 +6,7 @@ VARS_OLD := $(.VARIABLES)
 # ============================================
 # Common Makefile Configuration
 # ============================================
-COMMON_MAKE_VERSION := v1.0.0
+COMMON_MAKE_VERSION := v1.1.1
 COMMON_MAKE_REPO := git@github.com:halyph/go-service-common-make.git
 
 # Auto-download common-make if missing
