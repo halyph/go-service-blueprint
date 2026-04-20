@@ -1,0 +1,54 @@
+# Compiled Object files, Static and Dynamic libs (Shared Objects)
+*.o
+*.a
+*.so
+debug
+build
+
+# Common json files
+user.json
+client.json
+
+# Generated certificates
+snake_oil_key.pem
+snake_oil_cert.pem
+
+# Folders
+vendor
+compose/credentials
+
+# Temporary files
+*~
+*.swp
+.DS_Store
+
+# coverage reports
+*.cov
+coverage.xml
+coverprofile.txt
+
+# jetbrains ide config
+.idea
+.common-make/
+*.iml
+
+# ignore generated files
+assets.go
+tmp
+bindata.go
+
+# vscode config
+.vscode
+
+# local todo list
+TODO.md
+
+# placeholder file to commit empty directories
+.gitkeep
+
+# Go CLI tools, see /tools/tools.go
+.tools/
+
+# local development
+.devbox
+.claude

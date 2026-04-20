@@ -1,0 +1,9 @@
+with-expecter: true
+dir: "{{.InterfaceDir}}/mocks"
+filename: "{{.InterfaceName | snakecase}}.go"
+outpkg: mocks
+packages:
+  github.com/halyph/go-service-blueprint/pkg/service/factorial:
+    interfaces:
+      Storage:
+        config:

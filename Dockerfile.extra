@@ -1,0 +1,17 @@
+# Dockerfile.extra - Example of multi-Dockerfile builds
+# This demonstrates common-make's ability to build multiple Docker images
+# Usage: make docker will build both Dockerfile and Dockerfile.extra
+
+FROM alpine:latest
+
+RUN apk add --no-cache ca-certificates tzdata curl
+
+ARG TARGETARCH
+COPY build/linux/${TARGETARCH}/* /
+
+# Example: Add extra tools or configuration
+RUN echo "Extra image with additional tools"
+
+EXPOSE 8080
+
+CMD ["/server"]
