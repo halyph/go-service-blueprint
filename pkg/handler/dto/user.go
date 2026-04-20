@@ -1,3 +1,4 @@
+// Package dto contains data transfer objects for API layer.
 package dto
 
 // UserDTO represents a user data transfer object for API responses

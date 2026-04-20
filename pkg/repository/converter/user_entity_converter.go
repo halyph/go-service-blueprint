@@ -1,3 +1,4 @@
+// Package converter provides type conversions between database entities and domain models.
 package converter
 
 import (

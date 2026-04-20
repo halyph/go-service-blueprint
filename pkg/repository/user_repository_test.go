@@ -81,11 +81,11 @@ func TestUserRepository_ListActive(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Len(t, users, 2) // johndoe and janedoe are active, bobsmith is not
-	
+
 	// Should be ordered by username
 	assert.Equal(t, "janedoe", users[0].Username)
 	assert.Equal(t, "johndoe", users[1].Username)
-	
+
 	// All returned users should be active
 	for _, user := range users {
 		assert.True(t, user.IsActive)

@@ -7,10 +7,11 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/halyph/go-service-blueprint/pkg/model"
-	"github.com/halyph/go-service-blueprint/pkg/model/converter/generated"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/halyph/go-service-blueprint/pkg/model"
+	"github.com/halyph/go-service-blueprint/pkg/model/converter/generated"
 )
 
 var update = flag.Bool("update", false, "update golden files")

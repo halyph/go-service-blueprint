@@ -9,6 +9,7 @@ import (
 	"testing"
 	"time"
 
+	migrate "github.com/rubenv/sql-migrate"
 	"github.com/testcontainers/testcontainers-go"
 	"github.com/testcontainers/testcontainers-go/modules/postgres"
 	"github.com/testcontainers/testcontainers-go/wait"
@@ -16,7 +17,6 @@ import (
 	"github.com/uptrace/bun/dialect/pgdialect"
 	"github.com/uptrace/bun/driver/pgdriver"
 	"github.com/uptrace/bun/extra/bundebug"
-	migrate "github.com/rubenv/sql-migrate"
 )
 
 // SetupTestDB creates a test database using testcontainers and runs migrations
@@ -49,14 +49,14 @@ func SetupTestDB(t *testing.T) *bun.DB {
 
 	// Connect to database
 	sqldb := sql.OpenDB(pgdriver.NewConnector(pgdriver.WithDSN(connStr)))
-	
+
 	if err := sqldb.Ping(); err != nil {
 		t.Fatalf("Failed to ping database: %v", err)
 	}
 
 	// Create bun.DB
 	db := bun.NewDB(sqldb, pgdialect.New())
-	
+
 	// Add query hook for debugging (optional)
 	db.AddQueryHook(bundebug.NewQueryHook(
 		bundebug.WithVerbose(true),
@@ -77,7 +77,7 @@ func SetupTestDB(t *testing.T) *bun.DB {
 
 	// Clean up after test
 	t.Cleanup(func() {
-		db.Close()
+		_ = db.Close()
 		if err := pgContainer.Terminate(ctx); err != nil {
 			t.Logf("Failed to terminate container: %v", err)
 		}

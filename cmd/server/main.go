@@ -10,8 +10,9 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/halyph/go-service-blueprint/pkg/handler"
 	"golang.org/x/sync/errgroup"
+
+	"github.com/halyph/go-service-blueprint/pkg/handler"
 )
 
 func main() {

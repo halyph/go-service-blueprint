@@ -1,3 +1,4 @@
+// Package factorial provides factorial calculation services.
 package factorial
 
 import (

@@ -1,3 +1,4 @@
+// Package entity contains database entity types with ORM mappings.
 package entity
 
 import (

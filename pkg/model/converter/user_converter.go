@@ -1,3 +1,4 @@
+// Package converter provides type conversions between domain models and DTOs.
 package converter
 
 import (

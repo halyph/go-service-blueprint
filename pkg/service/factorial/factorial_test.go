@@ -4,9 +4,10 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/halyph/go-service-blueprint/pkg/service/factorial/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
+
+	"github.com/halyph/go-service-blueprint/pkg/service/factorial/mocks"
 )
 
 func TestService_Calculate(t *testing.T) {

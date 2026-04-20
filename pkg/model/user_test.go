@@ -3,9 +3,10 @@ package model_test
 import (
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/halyph/go-service-blueprint/pkg/model"
 	"github.com/halyph/go-service-blueprint/pkg/model/converter"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestFormatName(t *testing.T) {

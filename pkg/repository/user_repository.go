@@ -1,3 +1,4 @@
+// Package repository provides data persistence operations for domain models.
 package repository
 
 import (
@@ -5,10 +6,11 @@ import (
 	"database/sql"
 	"fmt"
 
+	"github.com/uptrace/bun"
+
 	"github.com/halyph/go-service-blueprint/pkg/model"
 	"github.com/halyph/go-service-blueprint/pkg/repository/converter/generated"
 	"github.com/halyph/go-service-blueprint/pkg/repository/entity"
-	"github.com/uptrace/bun"
 )
 
 // UserRepository handles user data persistence using bun

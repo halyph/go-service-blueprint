@@ -1,30 +1,101 @@
 run:
   timeout: 5m
   tests: true
+  modules-download-mode: readonly
+  build-tags:
+    - integration
 
 linters:
+  disable-all: true
   enable:
-    - errcheck
-    - gosimple
-    - govet
-    - ineffassign
-    - staticcheck
-    - unused
-    - gofmt
-    - goimports
-    - misspell
-    - revive
-    - unconvert
+    # Core linters (always recommended)
+    - errcheck      # Check for unchecked errors
+    - gosimple      # Simplify code
+    - govet         # Vet examines Go source code
+    - ineffassign   # Detect ineffectual assignments
+    - staticcheck   # Staticcheck is go vet on steroids
+    - typecheck     # Like the front-end of a Go compiler
+    - unused        # Check for unused constants, variables, functions and types
+
+    # Code quality
+    - bodyclose     # Check HTTP response body is closed
+    - goconst       # Find repeated strings that could be constants
+    - gosec         # Security checks
+    - misspell      # Spelling mistakes
+    - prealloc      # Find slice declarations with non-zero initial length
+    - unconvert     # Unnecessary type conversions
+    - unparam       # Unused function parameters
+    - whitespace    # Detect leading/trailing whitespace
+
+    # Style
+    - gofmt         # Format code
+    - goimports     # Manage imports
+    - revive        # Drop-in replacement for golint
+    - stylecheck    # Style checks
+
+    # Complexity (optional - can be strict)
+    - cyclop        # Cyclomatic complexity
 
 linters-settings:
+  cyclop:
+    max-complexity: 15  # Lower than lux's 20 for cleaner code
+
+  goimports:
+    local-prefixes: github.com/halyph/go-service-blueprint
+
+  gosec:
+    config:
+      # Maximum allowed permissions mode for os.WriteFile
+      G306: "0644"
+
   revive:
     rules:
       - name: var-naming
         disabled: true
       - name: exported
         disabled: true
+      - name: package-comments
+        disabled: true
 
 issues:
   exclude-use-default: false
   max-issues-per-linter: 0
   max-same-issues: 0
+
+  exclude-rules:
+    # Exclude some linters from running on test files
+    - path: '(.+)_test\.go'
+      text: 'unused-parameter'
+      linters:
+        - revive
+
+    # Ignore certain gosec issues in test files
+    - path: '(.+)_test\.go'
+      text: 'G404: Use of weak random number generator'
+      linters:
+        - gosec
+
+    # Allow unhandled errors in test cleanup
+    - path: '(.+)_test\.go'
+      text: "G104: Errors unhandled"
+      linters:
+        - gosec
+
+    # Allow file inclusion via variable in test files (golden files, testdata)
+    - path: '(.+)_test\.go'
+      text: 'G304: Potential file inclusion via variable'
+      linters:
+        - gosec
+
+    # Exclude generated code directories
+    - path: 'mocks/'
+      linters:
+        - stylecheck
+        - revive
+        - unused
+
+    - path: 'generated/'
+      linters:
+        - stylecheck
+        - revive
+        - unused

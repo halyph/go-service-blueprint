@@ -1,3 +1,4 @@
+// Package model contains domain models and business logic types.
 package model
 
 // User represents a domain user entity
